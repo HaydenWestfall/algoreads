@@ -1,4 +1,11 @@
+import { useState } from "react";
+import { CartCard } from "./CartCard";
+import { Checkout } from "./Checkout";
+
 export const CartList = () => {
+  const cartList = [];
+  const [checkout, setCheckout] = useState(false);
+
   return (
     <>
       <section>
@@ -7,7 +14,11 @@ export const CartList = () => {
         </p>
       </section>
 
-      <section>{/* Cart Cards */}</section>
+      <section>
+        {cartList.map((product) => (
+          <CartCard key={product.id} product={product} />
+        ))}
+      </section>
 
       <section className="max-w-4xl m-auto">
         <div className="flex flex-col p-2 border-b dark:border-slate-700 text-lg dark:text-slate-100">
@@ -20,11 +31,13 @@ export const CartList = () => {
           <button
             type="button"
             className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-base px-7 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
+            onClick={() => setCheckout(true)}
           >
             PLACE ORDER <i className="ml-2 bi bi-arrow-right"></i>
           </button>
         </div>
       </section>
+      {checkout && <Checkout setCheckout={setCheckout} />}
     </>
   );
 };
