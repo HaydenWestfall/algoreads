@@ -1,4 +1,36 @@
+import { useEffect, useState } from "react";
+import { useCart } from "../../../context";
+import { useNavigate } from "react-router-dom";
+import { createOrder, getUser, getUserOrders } from "../../../services/dataService";
+
 export const Checkout = ({ setCheckout }) => {
+  const { total, cartList, clearCart } = useCart();
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const data = await getUser();
+        setUser(data);
+      } catch (error) {
+        toast.error(error.message, { closeButton: true, position: "bottom-center" });
+      }
+    }
+    fetchUserData();
+  }, []);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const orderResponse = await createOrder(cartList, total, user);
+      clearCart();
+      navigate("/order-summary", { state: { data: orderResponse, status: true } });
+    } catch (error) {
+      navigate("/order-summary", { state: { status: false } });
+    }
+  }
+
   return (
     <section>
       <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
@@ -30,13 +62,13 @@ export const Checkout = ({ setCheckout }) => {
                   clipRule="evenodd"
                 ></path>
               </svg>
-              <span className="sr-only">Close modal</span>
+              <span className="sr-only">C = useCartlose modal</span>
             </button>
             <div className="py-6 px-6 lg:px-8">
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 <i className="bi bi-credit-card mr-2"></i>CARD PAYMENT
               </h3>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Name:
@@ -46,7 +78,7 @@ export const Checkout = ({ setCheckout }) => {
                     name="name"
                     id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="Shubham Sarda"
+                    value={user.name || "Undefined"}
                     disabled
                     required=""
                   />
@@ -60,7 +92,7 @@ export const Checkout = ({ setCheckout }) => {
                     name="email"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="shubham@example.com"
+                    value={user.email || "exmaple@email.com"}
                     disabled
                     required=""
                   />
@@ -74,7 +106,7 @@ export const Checkout = ({ setCheckout }) => {
                     name="card"
                     id="card"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="4215625462597845"
+                    value="123456789012345"
                     disabled
                     required=""
                   />
@@ -88,7 +120,7 @@ export const Checkout = ({ setCheckout }) => {
                     name="month"
                     id="month"
                     className="inline-block w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="03"
+                    value="05"
                     disabled
                     required=""
                   />
@@ -97,7 +129,7 @@ export const Checkout = ({ setCheckout }) => {
                     name="year"
                     id="year"
                     className="inline-block w-20 ml-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="27"
+                    value="19"
                     disabled
                     required=""
                   />
@@ -111,12 +143,12 @@ export const Checkout = ({ setCheckout }) => {
                     name="code"
                     id="code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="523"
+                    value="123"
                     disabled
                     required=""
                   />
                 </div>
-                <p className="mb-4 text-2xl font-semibold text-lime-500 text-center">$99</p>
+                <p className="mb-4 text-2xl font-semibold text-lime-500 text-center">${total}</p>
                 <button
                   type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"

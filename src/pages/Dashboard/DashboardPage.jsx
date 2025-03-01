@@ -1,4 +1,25 @@
+import { useEffect, useState } from "react";
+import { DashboardCard } from "./components/DashboardCard";
+import { DashboardEmpty } from "./components/DashboardEmpty";
+import { getUserOrders } from "../../services/dataService";
+import { useTitle } from "../../hooks/useTitle";
+
 export const DashboardPage = () => {
+  const [orders, setOrders] = useState([]);
+  useTitle("Dashboard");
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const data = await getUserOrders();
+        setOrders(data);
+      } catch (error) {
+        toast.error(error.message, { closeButton: true, position: "bottom-center" });
+      }
+    }
+    fetchOrders();
+  }, []);
+
   return (
     <main>
       <section>
@@ -6,6 +27,10 @@ export const DashboardPage = () => {
           My Dashboard
         </p>
       </section>
+
+      <section>{orders.length > 0 && orders.map((order) => <DashboardCard key={order.id} order={order} />)}</section>
+
+      <section>{!orders.length && <DashboardEmpty />}</section>
     </main>
   );
 };

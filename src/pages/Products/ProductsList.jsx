@@ -4,19 +4,23 @@ import { ProductCard } from "../../components";
 import { useLocation } from "react-router-dom";
 import { useTitle } from "../../hooks/useTitle";
 import { useFilter } from "../../context";
+import { getProductList } from "../../services/productService";
 
 export const ProductsList = () => {
   const [showFilter, setShowFilter] = useState(false);
   const searchQuery = useLocation().search;
   const searchTerm = new URLSearchParams(searchQuery).get("q");
-  useTitle("AlgoReads Product List | Our Collection of top tier learning classes");
   const { products, initialProductList } = useFilter();
+  useTitle("AlgoReads Product List | Our Collection of top tier learning classes");
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetch(`http://localhost:8000/products?name_like=${searchTerm ? searchTerm : ""}`);
-      const data = await response.json();
-      initialProductList(data);
+      try {
+        const data = await getProductList(searchTerm);
+        initialProductList(data);
+      } catch (error) {
+        toast.error(error.message, { closeButton: true, position: "bottom-center" });
+      }
     }
     fetchProducts();
   }, []);

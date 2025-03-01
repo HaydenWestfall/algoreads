@@ -3,6 +3,7 @@ import { Rating } from "../components";
 import { useCart } from "../context";
 import { useParams } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
+import { getProduct } from "../services/productService";
 
 export const ProductDetail = () => {
   const { cartList, addToCart, removeFromCart } = useCart();
@@ -12,12 +13,15 @@ export const ProductDetail = () => {
   useTitle(product.name);
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await fetch(`http://localhost:8000/products/${id}`);
-      const data = await response.json();
-      setProduct(data);
+    async function fetchProduct() {
+      try {
+        const data = await getProduct(id);
+        setProduct(data);
+      } catch (error) {
+        toast.error(error.message, { closeButton: true, position: "bottom-center" });
+      }
     }
-    fetchProducts();
+    fetchProduct();
   }, [id]);
 
   useEffect(() => {

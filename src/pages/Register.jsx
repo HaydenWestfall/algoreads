@@ -1,31 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../services/authService";
+import { useTitle } from "../hooks/useTitle";
 
 export const Register = () => {
   const navigate = useNavigate();
+  useTitle("Register");
 
   async function handleRegister(event) {
     event.preventDefault();
-    const authDetail = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      password: event.target.password.value,
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: { "content-Type": "application/json" },
-      body: JSON.stringify(authDetail),
-    };
-
-    const response = await fetch("http://localhost:8000/register", requestOptions);
-    const data = await response.json();
-
-    if (data.accessToken) {
-      sessionStorage.setItem("token", JSON.stringify(data.accessToken));
-      sessionStorage.setItem("aid", JSON.stringify(data.user.id));
-      navigate("/products");
-    } else {
-      toast.error(data);
+    try {
+      const registerResponse = await register({
+        name: event.target.name.value,
+        email: event.target.email.value,
+        password: event.target.password.value,
+      });
+      registerResponse.accessToken ? navigate("/products") : toast.error(registerResponse);
+    } catch (error) {
+      toast.error(error.message);
     }
   }
 

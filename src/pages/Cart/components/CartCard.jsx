@@ -1,4 +1,8 @@
+import { Link } from "react-router-dom";
+import { useCart } from "../../../context";
+
 export const CartCard = ({ product }) => {
+  const { removeFromCart } = useCart();
   const { poster, name, id, price } = product;
 
   return (
@@ -11,7 +15,9 @@ export const CartCard = ({ product }) => {
           <Link to={`products/${id}`}>
             <p className="text-lg ml-2 dark:text-slate-200">{name}</p>
           </Link>
-          <button className="text-base ml-2 text-red-400">Remove</button>
+          <button className="text-base ml-2 text-red-400" onClick={() => removeFromCart(product)}>
+            Remove
+          </button>
         </div>
       </div>
       <div className="text-lg m-2 dark:text-slate-200">

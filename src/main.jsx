@@ -6,26 +6,29 @@ import { BrowserRouter } from "react-router-dom";
 import { ScrollToTop } from "./components/index.js";
 import { FilterProvider } from "./context/FilterContext.jsx";
 import { ToastContainer } from "react-toastify";
+import { CartProvider } from "./context/CartContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <FilterProvider>
-        <ScrollToTop />
-        <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-        <App />
-      </FilterProvider>
+      <CartProvider>
+        <FilterProvider>
+          <ScrollToTop />
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+          <App />
+        </FilterProvider>
+      </CartProvider>
     </BrowserRouter>
   </StrictMode>
 );
