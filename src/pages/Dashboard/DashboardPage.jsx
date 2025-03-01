@@ -3,6 +3,7 @@ import { DashboardCard } from "./components/DashboardCard";
 import { DashboardEmpty } from "./components/DashboardEmpty";
 import { getUserOrders } from "../../services/dataService";
 import { useTitle } from "../../hooks/useTitle";
+import { toast } from "react-toastify";
 
 export const DashboardPage = () => {
   const [orders, setOrders] = useState([]);

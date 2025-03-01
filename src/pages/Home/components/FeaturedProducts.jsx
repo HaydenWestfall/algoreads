@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ProductCard } from "../../../components";
 import { getFeaturedList } from "../../../services/productService";
+import { toast } from "react-toastify";
 
 export const FeaturedProducts = ({ product }) => {
   const [products, setProducts] = useState([]);

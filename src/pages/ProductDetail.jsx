@@ -4,6 +4,7 @@ import { useCart } from "../context";
 import { useParams } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
 import { getProduct } from "../services/productService";
+import { toast } from "react-toastify";
 
 export const ProductDetail = () => {
   const { cartList, addToCart, removeFromCart } = useCart();

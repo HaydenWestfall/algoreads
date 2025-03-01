@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useTitle } from "../../hooks/useTitle";
 import { useFilter } from "../../context";
 import { getProductList } from "../../services/productService";
+import { toast } from "react-toastify";
 
 export const ProductsList = () => {
   const [showFilter, setShowFilter] = useState(false);
