@@ -8,10 +8,10 @@ import { getProductList } from "../../services/productService";
 import { toast } from "react-toastify";
 
 export const ProductsList = () => {
-  const [showFilter, setShowFilter] = useState(false);
-  const searchQuery = useLocation().search;
-  const searchTerm = new URLSearchParams(searchQuery).get("q");
   const { products, initialProductList } = useFilter();
+  const [show, setShow] = useState(false);
+  const search = useLocation().search;
+  const searchTerm = new URLSearchParams(search).get("q");
   useTitle("AlgoReads Product List | Our Collection of top tier learning classes");
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const ProductsList = () => {
       }
     }
     fetchProducts();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <main>
@@ -33,11 +33,11 @@ export const ProductsList = () => {
           <span className="text-2xl font-semibold dark:text-slate-100 mb-5">All eBooks ({products.length})</span>
           <span>
             <button
+              onClick={() => setShow(!show)}
               id="dropdownMenuIconButton"
               data-dropdown-toggle="dropdownDots"
               className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-700"
               type="button"
-              onClick={() => setShowFilter(!showFilter)}
             >
               <svg
                 className="w-6 h-6"
@@ -58,7 +58,8 @@ export const ProductsList = () => {
           ))}
         </div>
       </section>
-      {showFilter && <FilterBar setShowFilter={setShowFilter} />}
+
+      {show && <FilterBar setShow={setShow} />}
     </main>
   );
 };
