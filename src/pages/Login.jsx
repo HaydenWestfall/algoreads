@@ -24,8 +24,8 @@ export const Login = () => {
   }
 
   async function handleLoginAsGuest() {
-    email.current.value = "testuser@email.com";
-    password.current.value = "password";
+    email.current.value = import.meta.env.VITE_GUEST_USER_EMAIL;
+    password.current.value = import.meta.env.VITE_GUEST_USER_PASSWORD;
     try {
       const data = await login({ email: email.current.value, password: password.current.value });
       data.accessToken ? navigate("/products") : toast.error(data);
