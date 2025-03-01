@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "json-server": "npx json-server --watch data/db.json -m ./node_modules/json-server-auth -r data/routes.json --port 8000"
+    "json-server": "npx json-server --watch data/db.json -m ./node_modules/json-server-auth -r data/routes.json --port 8000",
+    "algoReads": "concurrently \"npm run dev\" \"npm run json-server\""
   },
   "dependencies": {
     "react": "^19.0.0",
