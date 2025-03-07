@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search } from "../Sections/Search";
-import Logo from "../../assets/Logo.png";
+import LogoLight from "../../assets/logo_light.png";
+import LogoDark from "../../assets/logo_dark.png";
 import { useCart } from "../../context/CartContext";
 import { DropdownLoggedIn } from "../Elements/DropdownLoggedIn";
 import { DropdownLoggedOut } from "../Elements/DropdownLoggedOut";
@@ -31,7 +32,7 @@ export const Header = () => {
       <nav className="bg-white dark:bg-gray-900">
         <div className="border-b border-slate-200 dark:border-b-0 flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-3">
           <Link to="/" className="flex items-center">
-            <img src={Logo} className="mr-3 h-10" alt="AlgoReads Logo" />
+            <img src={darkMode ? LogoLight : LogoDark} className="mr-3 h-10" alt="AlgoReads Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AlgoReads</span>
           </Link>
           <div className="flex items-center relative">

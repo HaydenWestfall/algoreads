@@ -8,7 +8,7 @@ export const HomePage = () => {
   useTitle("AlgoReads | Your one stop shop for computer science learning");
 
   return (
-    <main>
+    <main className="flex flex-col gap-32">
       <Hero />
       <FeaturedProducts />
       <Testimonials />

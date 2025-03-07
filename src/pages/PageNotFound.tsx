@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
-import Logo from "../assets/logo.png";
+import LogoLight from "../assets/logo_light.png";
+import LogoDark from "../assets/logo_dark.png";
 
 export const PageNotFound = () => {
   useTitle("Page Not Found");
+  const storedDarkMode = localStorage.getItem("darkMode");
+  const darkMode = storedDarkMode !== null ? JSON.parse(storedDarkMode) : true;
 
   return (
     <main>
@@ -11,7 +14,7 @@ export const PageNotFound = () => {
         <div className="flex flex-col items-center my-4">
           <p className="text-7xl text-gray-700 font-bold my-10 dark:text-white text-center">404, Oops!</p>
           <div className="max-w-xs">
-            <img className="" src={Logo} alt="CodeBook Page Not Found" />
+            <img className="" src={darkMode ? LogoLight : LogoDark} alt="CodeBook Page Not Found" />
           </div>
         </div>
         <div className="flex justify-center my-4">

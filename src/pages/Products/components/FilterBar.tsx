@@ -11,7 +11,8 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
     <section className="filter">
       <div
         id="drawer-disable-body-scrolling"
-        className={`fixed z-40 h-screen p-5 overflow-y-auto bg-white w-72 dark:bg-gray-800 transition-transhtmlForm left-0 top-0 transhtmlForm-none`}
+        className={`fixed z-40 h-screen p-5 overflow-y-auto bg-white w-72 dark:bg-gray-800 transition-transhtmlForm right-0 top-0 transhtmlForm-none border-l-2 border-color border-gray-200
+        shadow-md dark:border-gray-700`}
         tabIndex={-1}
         aria-labelledby="drawer-disable-body-scrolling-label"
         aria-modal="true"
@@ -58,7 +59,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   name="price-sort"
                   checked={state.sortBy === "lowtohigh"}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "SORT_BY", payload: { sortBy: "lowtohigh" } })}
+                  onChange={() => dispatch({ type: "SORT_BY", payload: { sortBy: "lowtohigh" } })}
                 />
                 <label htmlFor="price-sort-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Price - Low to High
@@ -72,7 +73,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   name="price-sort"
                   checked={state.sortBy === "hightolow"}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "SORT_BY", payload: { sortBy: "hightolow" } })}
+                  onChange={() => dispatch({ type: "SORT_BY", payload: { sortBy: "hightolow" } })}
                 />
                 <label htmlFor="price-sort-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Price - High to Low
@@ -89,7 +90,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   checked={state.ratings === "4STARSABOVE"}
                   name="rating-sort"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "RATINGS", payload: { ratings: "4STARSABOVE" } })}
+                  onChange={() => dispatch({ type: "RATINGS", payload: { ratings: "4STARSABOVE" } })}
                 />
                 <label htmlFor="rating-sort-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   4 Stars & Above
@@ -103,7 +104,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   name="rating-sort"
                   checked={state.ratings === "3STARSABOVE"}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "RATINGS", payload: { ratings: "3STARSABOVE" } })}
+                  onChange={() => dispatch({ type: "RATINGS", payload: { ratings: "3STARSABOVE" } })}
                 />
                 <label htmlFor="rating-sort-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   3 Stars & Above
@@ -117,7 +118,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   name="rating-sort"
                   checked={state.ratings === "2STARSABOVE"}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "RATINGS", payload: { ratings: "2STARSABOVE" } })}
+                  onChange={() => dispatch({ type: "RATINGS", payload: { ratings: "2STARSABOVE" } })}
                 />
                 <label htmlFor="rating-sort-3" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   2 Stars & Above
@@ -131,7 +132,7 @@ export const FilterBar = ({ setShow }: FilterBarProps) => {
                   name="rating-sort"
                   checked={state.ratings === "1STARSABOVE"}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => dispatch({ type: "RATINGS", payload: { ratings: "1STARSABOVE" } })}
+                  onChange={() => dispatch({ type: "RATINGS", payload: { ratings: "1STARSABOVE" } })}
                 />
                 <label htmlFor="rating-sort-4" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   1 Stars & Above

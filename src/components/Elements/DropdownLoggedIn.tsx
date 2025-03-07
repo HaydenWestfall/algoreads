@@ -16,8 +16,6 @@ export const DropdownLoggedIn = ({ setDropdown }: DropdownLoggedInProps) => {
     async function fetchData() {
       try {
         const data = await getUser();
-
-        const test = await getUserOrders();
         data.email ? setUser(data) : handleLogout();
       } catch (error: any) {
         toast.error(error.message, { closeButton: true, position: "bottom-center" });
